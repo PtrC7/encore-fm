@@ -5,14 +5,13 @@ from routes import register_routes
 
 app = Flask(__name__)
 app.config.from_object(Config)
-register_routes(app)
 CORS(app, resources={
     r"/api/*": {
-        "origins": [
-            "https://encore-fm-frontend.onrender.com"
-        ]
+        "origins": [app.config['FRONTEND_URL']],
+        "supports_credentials": True
     }
 })
+register_routes(app)
 
 if __name__ == "__main__":
     app.run(
