@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { apiFetch } from "../api";
 
 function parseSetlistDate(dateStr) {
   if (!dateStr) return null;
@@ -36,7 +37,7 @@ export default function SetlistList({ artist, onSelectSetlist }) {
       venue: artist.filters?.venue || "",
       tour: artist.filters?.tour || "",
     });
-    fetch(`/api/artists/${artist.mbid}/setlists?${params}`)
+    apiFetch(`/api/artists/${artist.mbid}/setlists?${params}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) setSetlists(data.data);

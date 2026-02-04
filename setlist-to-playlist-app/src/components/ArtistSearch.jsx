@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { apiFetch } from "../api";
 
 export default function ArtistSearch({ onSelectArtist }) {
   const [query, setQuery] = useState("");
@@ -34,7 +35,7 @@ export default function ArtistSearch({ onSelectArtist }) {
     debounceRef.current = setTimeout(async () => {
       setLoading(true);
       try {
-        const res = await fetch(
+        const res = await apiFetch(
           `/api/artists/search?q=${encodeURIComponent(query)}`
         );
         const data = await res.json();

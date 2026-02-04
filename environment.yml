@@ -13,3 +13,4 @@ dependencies:
     - python-dotenv==1.1.1
     - spotipy==2.25.1
     - flask==2.2.5
+    - flask-cors==6.0.02

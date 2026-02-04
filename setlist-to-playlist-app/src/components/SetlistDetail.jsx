@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { apiFetch } from "../api";
 
 export default function SetlistDetail({ setlist }) {
   const [songs, setSongs] = useState([]);
@@ -17,7 +18,7 @@ export default function SetlistDetail({ setlist }) {
     setPlaylistUrl(null);
     setError(null);
 
-    fetch(`/api/setlists/${setlist.id}`)
+    apiFetch(`/api/setlists/${setlist.id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
@@ -41,7 +42,7 @@ export default function SetlistDetail({ setlist }) {
   }, [setlist]);
 
   async function checkAuth() {
-    const res = await fetch("/api/auth/me");
+    const res = await apiFetch("/api/auth/me");
     const data = await res.json();
     if (data.authenticated) {
       setUser(data.user);
@@ -77,7 +78,7 @@ export default function SetlistDetail({ setlist }) {
   }
 
   async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await apiFetch("/api/auth/logout", { method: "POST" });
     setUser(null);
   }
 
@@ -108,7 +109,7 @@ export default function SetlistDetail({ setlist }) {
         .filter((s) => selectedSongs[s.position])
         .map((s) => ({ position: s.position, set_number: s.set_number }));
 
-      const res = await fetch(`/api/playlists/create`, {
+      const res = await apiFetch(`/api/playlists/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
