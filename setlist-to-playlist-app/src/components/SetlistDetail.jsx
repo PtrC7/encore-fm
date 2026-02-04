@@ -57,8 +57,11 @@ export default function SetlistDetail({ setlist }) {
     const w = 500, h = 700;
     const left = window.screenX + (window.outerWidth - w) / 2;
     const top = window.screenY + (window.outerHeight - h) / 2;
+
+    const loginUrl = `${import.meta.env.VITE_API_BASE_URL}/api/auth/login`;
+
     const popup = window.open(
-      "/api/auth/login",
+      loginUrl,
       "Spotify Login",
       `width=${w},height=${h},left=${left},top=${top},resizable=yes,scrollbars=yes`
     );
