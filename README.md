@@ -1,4 +1,6 @@
-# Concert Setlist to Spotify Playlist Generator
+# No longer works due to new Spotify API Changes
+Due to Spotify API now requiring premium, creating playlists no longer work. You can still view the song list for the setlist.
+# [Setlist.FM](https://encore-fm.onrender.com/)
 A full-stack web application that lets users search for an artist, browse their concert setlists, preview songs, and generate a Spotify playlist.  
 This project integrates multiple third-party APIs, includes rate limiting and caching, and provides a React UI for selecting and filtering songs before playlist creation.
 
