@@ -27,12 +27,7 @@ export default function SetlistDetail({ setlist }) {
 
           const defaults = {};
           data.data.songs.forEach((song) => {
-            defaults[song.position] = !(
-              song.is_cover ||
-              song.is_encore ||
-              song.spotify_uri == null ||
-              song.spotify_uri == undefined
-            );
+            defaults[song.position] = !(song.is_cover || song.is_encore);
           });
           setSelectedSongs(defaults);
         }
@@ -159,15 +154,14 @@ export default function SetlistDetail({ setlist }) {
             {!loading && songs.length > 0 && (
               <ol className="song-list">
                 {songs.map((song) => {
-                  const isSpotifyMissing = song.spotify_uri == null || song.spotify_uri == undefined;
-                  const isSelected = selectedSongs[song.position] && !isSpotifyMissing;
+                  const isSelected = selectedSongs[song.position];
 
                   return (
                     <li
                       key={song.position}
                       className={`song-item ${isSelected ? "selected" : "faded"}`}
                       onClick={() => {
-                        if (!isSpotifyMissing) toggleSong(song.position);
+                        toggleSong(song.position)
                       }}
                     >
                       <div className="song-entry">
@@ -193,9 +187,9 @@ export default function SetlistDetail({ setlist }) {
                             <span className="song-album">{song.album}</span>
                           )}
 
-                          {isSpotifyMissing && (
+                          {/* {isSpotifyMissing && (
                             <span className="song-missing">Not found on Spotify</span>
-                          )}
+                          )} */}
                         </div>
                       </div>
                     </li>
@@ -216,7 +210,12 @@ export default function SetlistDetail({ setlist }) {
               {selectedCount} of {total} songs selected
             </p>
 
-            <div className="toggle-container">
+            <div className="spotify-actions">
+              <p className="spotify-button">
+                Playlist creation is temporarily unavailable
+              </p>
+            </div>
+            {/* <div className="toggle-container">
               <span className="toggle-label">Private</span>
               <label className="switch">
                 <input
@@ -264,7 +263,7 @@ export default function SetlistDetail({ setlist }) {
                 </button>
               )}
               {error && <p className="error-text">{error}</p>}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
