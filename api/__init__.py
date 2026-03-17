@@ -11,6 +11,8 @@ from api.setlistfm import SetlistFMClient, SetlistFMError
 
 from api.spotify import SpotifyUserClient, SpotifyAppClient, SpotifyError
 
+from api.musicmeta import MusicMetaClient
+
 __all__ = [
     # Exceptions
     'APIError',
@@ -26,6 +28,7 @@ __all__ = [
     'SpotifyAppClient',
     'SpotifyUserClient',
     'SpotifyError',
+    'MusicMetaClient',
 ]
 
 __version__ = '0.1.0'

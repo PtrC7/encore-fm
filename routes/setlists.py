@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 from api.setlistfm import SetlistFMClient
-from api.spotify import SpotifyAppClient
+from api.musicmeta import MusicMetaClient
 from api.exceptions import APIError, NotFoundError, AuthenticationError
 
 setlist_bp = Blueprint('setlists', __name__)
@@ -11,14 +11,8 @@ def get_setlistfm_client():
         cache_ttl=current_app.config['CACHE_TTL']
     )
 
-def get_spotify_app_client():
-    try:
-        return SpotifyAppClient(
-            client_id=current_app.config['SPOTIFY_CLIENT_ID'],
-            client_secret=current_app.config['SPOTIFY_CLIENT_SECRET']
-        )
-    except AuthenticationError as e:
-        raise e
+def get_music_meta_client():
+    return MusicMetaClient()
 
 @setlist_bp.route('/artists/search', methods=['GET'])
 def search_artists():
@@ -91,11 +85,11 @@ def get_setlist_details(setlist_id):
         client = get_setlistfm_client()
         songs = client.get_setlist_songs(setlist_id)
 
-        spotify_client = get_spotify_app_client()
+        meta_client = get_music_meta_client()
         enriched_songs = []
 
         for song in songs:
-            track_uri = spotify_client.search_track(song)
+            track_data = meta_client.search_track(song)
             enriched_songs.append({
                 'name': song.name,
                 'artist': song.artist,
@@ -106,15 +100,17 @@ def get_setlist_details(setlist_id):
                 'position': song.position,
                 'set_number': song.set_number,
                 'info': song.info,
-                'album': track_uri['album'] if track_uri else None,
-                'album_image': track_uri['album_image'] if track_uri else None,
-                'artist_image': track_uri['artist_image'] if track_uri else None,
-                'spotify_uri': track_uri['uri'] if track_uri else None
+                'album': track_data['album'] if track_data else None,
+                'album_image': track_data['album_image'] if track_data else None,
+                'artist_image': track_data['artist_image'] if track_data else None,
+                'spotify_uri': None
             })
         
-        artist_image = next(
-            (s['artist_image'] for s in enriched_songs if s['artist_image']), None
-        )
+        artist_name = songs[0].artist if songs else None
+        artist_image = meta_client.get_artist_image(artist_name) if artist_name else None
+
+        for s in enriched_songs:
+            s['artist_image'] = artist_image
 
         return jsonify({
             'success': True,
