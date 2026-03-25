@@ -144,9 +144,15 @@ export default function SetlistDetail({ setlist }) {
   return (
     <div className="setlist-detail-wrapper">
       <div className="setlist-card">
-        <h2 className="setlist-header">
-          {setlist.display_title || `${setlist.venue}, ${setlist.city}`}
-        </h2>
+      <h2 className="setlist-header">
+        {setlist.url ? (
+          <a href={setlist.url} target="_blank" rel="noopener noreferrer">
+            {setlist.display_title || `${setlist.venue}, ${setlist.city}`}
+          </a>
+        ) : (
+          setlist.display_title || `${setlist.venue}, ${setlist.city}`
+        )}
+      </h2>
 
         <div className="setlist-content">
           <div className="song-list-column">

@@ -249,6 +249,16 @@
   margin-bottom: 1.5rem;
 }
 
+.setlist-header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.setlist-header a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
 .setlist-content {
   display: flex;
   justify-content: space-between;
