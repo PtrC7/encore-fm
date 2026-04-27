@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiFetch } from "../api";
 
-export default function SetlistDetail({ setlist }) {
+export default function SetlistDetail({ setlist, onBack }) {
   const [songs, setSongs] = useState([]);
   const [selectedSongs, setSelectedSongs] = useState({});
   const [loading, setLoading] = useState(false);
@@ -143,6 +143,7 @@ export default function SetlistDetail({ setlist }) {
 
   return (
     <div className="setlist-detail-wrapper">
+      <button className="back-button" onClick={onBack}>← Back</button>
       <div className="setlist-card">
       <h2 className="setlist-header">
         {setlist.url ? (

@@ -508,3 +508,155 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(22px);
 }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Mobile */
+.back-button {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .app-container {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid #222;
+    overflow-y: visible;
+    overflow-x: hidden;
+    height: auto;
+    box-sizing: border-box;
+  }
+
+  .main-content {
+    width: 100%;
+    padding: 1rem;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .artist-search {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+  }
+
+  .artist-search-form {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .artist-search-row {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .artist-search-row input {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .artist-filter-row {
+    width: 100%;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+  }
+
+  .artist-filter-row input,
+  .artist-filter-row select {
+    min-width: 0;
+    flex: 1 1 80px;
+    box-sizing: border-box;
+  }
+
+  /* Fix setlist list */
+  .setlist-pane {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .setlist-ul {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .setlist-li {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  
+  .setlist-detail-wrapper {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .setlist-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .setlist-content {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .song-list-column {
+    width: 100%;
+    max-height: none;
+  }
+
+  .song-list {
+    max-height: none;
+    width: 100%;
+  }
+
+  .artist-column {
+    width: 100%;
+    order: -1;
+  }
+
+  .back-button {
+    display: inline-block;
+    margin-bottom: 1rem;
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+}

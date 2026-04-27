@@ -7,15 +7,30 @@ import "./App.css";
 function App() {
   const [selectedArtist, setSelectedArtist] = useState(null);
   const [selectedSetlist, setSelectedSetlist] = useState(null);
+  const [mobileView, setMobileView] = useState("browse");
+
+  const handleSelectSetlist = (setlist) => {
+    setSelectedSetlist(setlist);
+    setMobileView("detail");
+  };
+
+  const handleSelectArtist = (a) => {
+    setSelectedArtist(a);
+    setSelectedSetlist(null);
+    setMobileView("browse");
+  };
 
   return (
     <div className="app-container">
-      <div className="sidebar">
-        <ArtistSearch onSelectArtist={(a) => { setSelectedArtist(a); setSelectedSetlist(null); }} />
-        <SetlistList artist={selectedArtist} onSelectSetlist={setSelectedSetlist} />
+      <div className={`sidebar ${mobileView === "detail" ? "mobile-hidden" : ""}`}>
+        <ArtistSearch onSelectArtist={handleSelectArtist} />
+        <SetlistList artist={selectedArtist} onSelectSetlist={handleSelectSetlist} />
       </div>
-      <div className="main-content">
-        <SetlistDetail setlist={selectedSetlist} />
+      <div className={`main-content ${mobileView === "browse" ? "mobile-hidden" : ""}`}>
+        <SetlistDetail
+          setlist={selectedSetlist}
+          onBack={() => setMobileView("browse")}
+        />
       </div>
     </div>
   );
